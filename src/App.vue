@@ -1,12 +1,6 @@
-<template>
-  <div class="app">
-    <ul>
-      {{ data }}
-    </ul>
-  </div>
-</template>
 
 <script>
+  import axios from 'axios'
 
 export default {
   name: 'app',
@@ -16,11 +10,39 @@ export default {
       data: []
     }
   },
+  methods: {
+    prueba() {
+        const uno = "prueba"
+        console.log(uno)
+    }
+  },
   created () {
-
+    axios.create({
+      baseURL: 'https://aerolab-challenge.now.sh/products',
+      method:'get',
+      headers: {
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YTBjYTA4OGU0OTYwMDAwNjBkMDBhN2EiLCJpYXQiOjE1MTA3NzY5Njh9.VPxLgjGfLVCZyLkBFczf-rlm-m2Hbd1qeipZK4vT84Q'
+      }
+    }).then(response => {
+      this.data = response.data
+    })
+      .catch(e => {
+        this.errors.push(e)
+      })
   }
 }
 </script>
+
+
+<template>
+  <div class="app">
+    <ul>
+      <a href="" @click.prevent="prueba">prueba</a>
+      Mi data sarasa
+      {{ data }}
+    </ul>
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .app {
